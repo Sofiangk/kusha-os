@@ -25,7 +25,7 @@ KushaOS helps small bakeries track orders from receipt to delivery, manage inven
 
 ```bash
 # Clone and navigate
-git clone <your-repo-url>
+git clone https://github.com/Sofiangk/kusha-os.git
 cd kusha-os
 
 # Install dependencies
@@ -180,12 +180,17 @@ Sequential 6-digit format: `ORD000001`, `ORD000002`, ... up to `ORD999999`
 
 ### Phone Normalization
 
-All Libyan phone numbers auto-normalize to: `+218XXXXXXXXX`
+All Libyan phone numbers auto-normalize to: `+21809XXXXXXXX` (11 total digits after +)
+
+**Valid prefixes**: Only 090, 091, 092, 093, 094, or 095
 
 Examples:
 
 -   `0912345678` → `+2180912345678`
--   `2181234567890` → `+2181234567890`
+-   `0901234567` → `+2180901234567`
+-   `+2180956789123` → `+2180956789123`
+
+**Invalid**: Any number not starting with 09[0-5] will be rejected
 
 ---
 

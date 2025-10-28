@@ -41,18 +41,32 @@ class Client extends Model
     private static function normalizePhone(string $phone): string
     {
         $cleaned = preg_replace('/[\s\-\(\)]/', '', $phone);
+        $local = null;
 
-        if (!str_starts_with($cleaned, '+')) {
-            if (str_starts_with($cleaned, '218')) {
-                $cleaned = '+' . $cleaned;
-            } elseif (str_starts_with($cleaned, '0')) {
-                $cleaned = '+218' . substr($cleaned, 1);
-            } else {
-                $cleaned = '+218' . $cleaned;
-            }
+        // If already in international format (+218)
+        if (str_starts_with($cleaned, '+218')) {
+            $local = substr($cleaned, 4);
+        }
+        // If starts with 218 (without +)
+        elseif (str_starts_with($cleaned, '218')) {
+            $local = substr($cleaned, 3);
+        }
+        // If starts with 0 (local format)
+        elseif (str_starts_with($cleaned, '0')) {
+            $local = $cleaned;
+        }
+        // Invalid format
+        else {
+            throw new \InvalidArgumentException('Invalid Libyan phone number format');
         }
 
-        return $cleaned;
+        // Validate local number: must be 10 digits starting with 09[0-5]
+        if (!preg_match('/^09[0-5]\d{8}$/', $local)) {
+            throw new \InvalidArgumentException('Invalid Libyan phone number. Must start with 090, 091, 092, 093, 094, or 095');
+        }
+
+        // Return normalized format
+        return '+218' . $local;
     }
 
     /**
