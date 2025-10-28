@@ -9,6 +9,5 @@ DEPLOYMENT.md
 node_modules
 npm-debug.log
 Dockerfile
-docker
 vendor
 
