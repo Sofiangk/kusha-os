@@ -1,18 +1,17 @@
 #!/bin/bash
+set -e
 
-# Start PHP-FPM
-service php8.2-fpm start
+# Start PHP-FPM in background
+php-fpm -D
 
-# Start Nginx
-nginx
+# Start Nginx in background
+nginx -g 'daemon off;' &
 
 # Wait for services to start
-sleep 2
+sleep 3
 
-# Run migrations (only if APP_ENV is production and database is configured)
-if [ "$APP_ENV" = "production" ]; then
-    php artisan migrate --force || true
-fi
+# Run migrations (only if database is configured)
+php artisan migrate --force || echo "Migration failed or database not ready"
 
 # Keep container running
 tail -f /var/log/nginx/access.log /var/log/nginx/error.log
