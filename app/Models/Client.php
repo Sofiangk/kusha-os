@@ -45,11 +45,15 @@ class Client extends Model
 
         // If already in international format (+218)
         if (str_starts_with($cleaned, '+218')) {
-            $local = substr($cleaned, 4);
+            $local = '0' . substr($cleaned, 4);
+        }
+        // If starts with 00218 (00 international prefix)
+        elseif (str_starts_with($cleaned, '00218')) {
+            $local = '0' . substr($cleaned, 4);
         }
         // If starts with 218 (without +)
         elseif (str_starts_with($cleaned, '218')) {
-            $local = substr($cleaned, 3);
+            $local = '0' . $cleaned;
         }
         // If starts with 0 (local format)
         elseif (str_starts_with($cleaned, '0')) {
@@ -65,8 +69,8 @@ class Client extends Model
             throw new \InvalidArgumentException('Invalid Libyan phone number. Must start with 090, 091, 092, 093, 094, or 095');
         }
 
-        // Return normalized format
-        return '+218' . $local;
+        // Return normalized format: remove the leading 0 and add +218
+        return '+218' . substr($local, 1);
     }
 
     /**

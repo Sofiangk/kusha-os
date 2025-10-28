@@ -186,9 +186,9 @@ All Libyan phone numbers auto-normalize to: `+21809XXXXXXXX` (11 total digits af
 
 Examples:
 
--   `0912345678` → `+2180912345678`
--   `0901234567` → `+2180901234567`
--   `+2180956789123` → `+2180956789123`
+-   `0912345678` → `+218912345678`
+-   `0921234567` → `+218921234567`
+-   `002180956789123` → `+218956789123`
 
 **Invalid**: Any number not starting with 09[0-5] will be rejected
 
