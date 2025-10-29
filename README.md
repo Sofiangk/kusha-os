@@ -56,7 +56,7 @@ API will be available at: `http://localhost:8000/api/v1`
 
 ## 📡 API Endpoints
 
-**Base URL**: `https://your-domain.com/api/v1`
+**Base URL**: `http://localhost:8000/api/v1` (local development)
 
 All protected endpoints require authentication via Sanctum token (Bearer token in header).
 
@@ -300,31 +300,7 @@ Password: password
 
 ---
 
-## 🚢 Deployment
-
-### Production Environment
-
-1. Update `.env` with production database credentials
-2. Set `APP_ENV=production`
-3. Set `APP_DEBUG=false`
-4. Run `php artisan config:cache`
-5. Run `php artisan route:cache`
-6. Deploy to Heroku, Railway, or your preferred hosting
-
-### Heroku Deployment
-
-```bash
-heroku create kushaos
-heroku addons:create heroku-postgresql:hobby-dev
-git push heroku main
-heroku run php artisan migrate --seed
-```
-
----
-
 ## 📚 Swagger Documentation
-
-Once deployed, visit: `https://your-domain.com/api/documentation`
 
 For local development:
 
